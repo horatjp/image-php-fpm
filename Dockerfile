@@ -1,4 +1,4 @@
-FROM php:8.0-fpm
+FROM php:8.1-fpm
 
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
@@ -30,7 +30,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
-RUN pecl install imagick redis-5.3.4 xdebug-3.1.1 \
+RUN pecl install imagick redis-5.3.7 xdebug-3.2.2 \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-enable imagick redis xdebug \
