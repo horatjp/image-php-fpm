@@ -1,14 +1,13 @@
-FROM php:8.3-fpm
+FROM php:8.4-fpm-trixie
 
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends \
     imagemagick \
-    libc-client-dev \
-    libfreetype6-dev \
+    libfreetype-dev \
     libjpeg62-turbo-dev \
     libkrb5-dev \
     libmagickwand-dev \
@@ -30,15 +29,13 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
-RUN pecl install imagick mailparse redis-6.1.0 xdebug-3.3.2 \
-    && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
+RUN pecl install imagick mailparse redis-6.3.0 xdebug-3.4.7 \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-enable imagick mailparse redis xdebug \
     && docker-php-ext-install -j$(nproc) \
     bcmath \
     exif \
     gd \
-    imap \
     intl \
     mbstring \
     mysqli \

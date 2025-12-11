@@ -7,7 +7,6 @@ This image is based on the official PHP FPM image and adds some additional PHP e
 - bcmath
 - exif
 - gd (with freetype and jpeg support)
-- imap
 - imagick
 - intl
 - mbstring
