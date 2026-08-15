@@ -29,7 +29,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
-RUN pecl install imagick mailparse redis-6.3.0 xdebug-3.4.7 \
+RUN pecl install imagick-3.8.1 mailparse-3.2.0 redis-6.3.0 xdebug-3.4.7 \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-enable imagick mailparse redis xdebug \
     && docker-php-ext-install -j$(nproc) \
