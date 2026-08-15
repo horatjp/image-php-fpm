@@ -1,4 +1,4 @@
-FROM php:8.4-fpm-trixie
+FROM php:8.5-fpm-trixie
 
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
@@ -29,23 +29,20 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
-RUN pecl install imagick-3.8.1 mailparse-3.2.0 redis-6.3.0 xdebug-3.4.7 \
+RUN pecl install imagick-3.8.1 mailparse-3.2.0 redis-6.3.0 xdebug-3.5.3 \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-enable imagick mailparse redis xdebug \
+    # mbstring / opcache / pdo_sqlite / xml are built into the PHP 8.5 base image
     && docker-php-ext-install -j$(nproc) \
     bcmath \
     exif \
     gd \
     intl \
-    mbstring \
     mysqli \
-    opcache \
     pcntl \
     pdo_mysql \
     pdo_pgsql \
-    pdo_sqlite \
     pgsql \
-    xml \
     zip \
     && pecl clear-cache
 
